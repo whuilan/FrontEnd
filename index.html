@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Bootstrap 实例 - 水平表单</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css" >
+        .our-button-style {
+            width: 80%;
+            margin: 0 10%;
+        }
+    </style>
+
+</head>
+<body>
+	<form name="addPatientForm" class="form-horizontal">
+		<div class="row">
+			<div class="col-md-6">
+                <div class="form-group" style="margin-top: 10px;">
+                    <!--ID-->
+                    <label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">数值</label>
+                    <div class="col-md-6" style="margin-left:-5%;">
+                        <input type="number" class="form-control ng-valid" name="num" required id="num-input">
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <!--ID-->
+                    <label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">单位</label>
+                    <div class="col-md-6" style="margin-left:-5%;">
+                        <input type="text" class="form-control ng-valid unit-input" name="unit">
+                    </div>
+                </div>
+            </div>	
+        </div>	
+    </form>
+    <button class="btn btn-primary our-button-style" onclick="clickme()">提交</button>    
+
+    <script type="text/javascript" >
+        function clickme () {
+            var num = $('#num-input').val()
+            var unit = $('.unit-input').val()
+            var data = {
+                    num: num,
+                    unit: unit
+                }
+            $.ajax({
+                url: "http://localhost:40415/Service.asmx/testAPIFunction",
+                data: { value: JSON.stringify(data) },
+　　　　         dataType: "xml",
+                method: 'POST',
+                success: function (res) {
+                    console.log('success')
+                    console.log(res)
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            })
+        }
+        function soapBuilder (num, unit) {
+            soapString = '<?xml version="1.0" encoding="utf-8"?> \
+                <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\
+                <soap:Body>\
+                    <testAPIFunction xmlns="http://tempuri.org/">\
+                    <num>' + num + '</num>\
+                    <unit>' + unit + '</unit>'
+                    '</testAPIFunction>\
+                </soap:Body>\
+                </soap:Envelope>'
+            console.log(soapString)
+            return soapString
+        }
+    </script>
+</body>
+</html>

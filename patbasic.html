@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Bootstrap 实例 - 水平表单</title>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style type="text/css" >
+        .our-button-style {
+            margin: 1% 37%;
+        }
+    </style>
+</head>
+<body>
+	<form name="addPatientForm" class="form-horizontal">
+		<div class="row">
+			<div class="col-md-6">
+				<table id="patientBasicInfo" style="width:100%;">
+					<tr>
+						<td>
+							<div class="form-group ">
+								<!--ID-->
+								<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">姓名</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatName" required id="PatName-input">
+								</div>
+							</div>
+						</td>
+						 <td>
+							<div class="form-group">
+								<label class="col-md-1" style="width:21%;margin-top:7px;">病人ID</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatID" id="PatID-input" >
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group ">
+								<!--ID-->
+								<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">性别</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatSex" required id="PatSex-input">
+								</div>
+							</div>
+						</td>
+						 <td>
+							<div class="form-group">
+								<label class="col-md-1" style="width:21%;margin-top:7px;">就诊日期</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatVisitDateTime" id="PatVisitDateTime-input">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group ">
+								<!--ID-->
+								<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">民族</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatNational" required id="PatNational-input">
+								</div>
+							</div>
+						</td>
+						 <td>
+							<div class="form-group">
+								<label class="col-md-1" style="width:21%;margin-top:7px;">文化程度</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatEducationLevel" id="PatEducationLevel-input">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group ">
+								<!--ID-->
+								<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">出生日期</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatBirthday" required id="PatBirthday-input">
+								</div>
+							</div>
+						</td>
+						 <td>
+							<div class="form-group">
+								<label class="col-md-1" style="width:21%;margin-top:7px;">经济来源</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatIncomeSource" id="PatIncomeSource-input">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group ">
+								<!--ID-->
+								<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">联系电话</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatPhone" required id="PatPhone-input">
+								</div>
+							</div>
+						</td>
+						 <td>
+							<div class="form-group">
+								<label class="col-md-1" style="width:21%;margin-top:7px;">治疗消费</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatTreatmentCost" id="PatTreatmentCost-input">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group ">
+								<!--ID-->
+								<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">子女数</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatChildCount" required id="PatChildCount-input">
+								</div>
+							</div>
+						</td>
+						 <td>
+							<div class="form-group">
+								<label class="col-md-1" style="width:21%;margin-top:7px;">职业</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatProfessional" id="PatProfessional-input">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="form-group ">
+								<!--ID-->
+								<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">兄弟姐妹数</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatSiblingsCount" required id="PatSiblingsCount-input">
+								</div>
+							</div>
+						</td>
+						 <td>
+							<div class="form-group">
+								<label class="col-md-1" style="width:21%;margin-top:7px;">收入</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatIncome" id="PatIncome-input">
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+							<td>
+								<div class="form-group ">
+									<!--ID-->
+									<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">籍贯：省/市</label>
+									<div class="col-md-6" style="margin-left:-5%;">
+										<input type="text" class="form-control ng-valid" name="PatBirthProvince" required id="PatBirthProvince-input">
+									</div>
+								</div>
+							</td>
+							 <td>
+								<div class="form-group">
+									<label class="col-md-1" style="width:21%;margin-top:7px;">市/县</label>
+									<div class="col-md-6" style="margin-left:-5%;">
+										<input type="text" class="form-control ng-valid" name="PatBirthCity" id="PatBirthCity-input">
+									</div>
+								</div>
+							</td>
+						</tr>
+					<tr>
+						<td>
+							<div class="form-group ">
+								<!--ID-->
+								<label class="col-md-offset-1 col-md-1" style="width:21%;margin-top:7px;">联系地址</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatAddress" required id="PatAddress-input">
+								</div>
+							</div>
+						</td>
+						 <td>
+							<div class="form-group">
+								<label class="col-md-1" style="width:21%;margin-top:7px;">邮政编码</label>
+								<div class="col-md-6" style="margin-left:-5%;">
+									<input type="text" class="form-control ng-valid" name="PatZipcode" id="PatZipcode-input">
+								</div>
+							</div>
+						</td>
+					</tr>	
+				</table>
+			</div>	
+		</div>
+	</form>
+    <button type="submit" class="btn btn-primary our-button-style" onclick="clickme()">提交</button>
+    <script type="text/javascript" >
+        function clickme () {
+            var PatName = $('#PatName-input').val()
+            var PatID = $('#PatID-input').val()
+            var PatSex = $('#PatSex-input').val()
+            var PatVisitDateTime = $('#PatVisitDateTime-input').val()
+            var PatNational = $('#PatNational-input').val()
+            var PatEducationLevel = $('#PatEducationLevel-input').val()
+            var PatBirthday = $('#PatBirthday-input').val()
+            var PatIncomeSource = $('#PatIncomeSource-input').val()
+            var PatPhone = $('#PatPhone-input').val()
+            var PatTreatmentCost = $('#PatTreatmentCost-input').val()
+            var PatChildCount = $('#PatChildCount-input').val()
+            var PatProfessional = $('#PatProfessional-input').val()
+            var PatSiblingsCount = $('#PatSiblingsCount-input').val()
+            var PatIncome = $('#PatIncome-input').val()
+            var PatBirthProvince = $('#PatBirthProvince-input').val()
+            var PatBirthCity = $('#PatBirthCity-input').val()
+            var PatAddress = $('#PatAddress-input').val()
+            var PatZipcode = $('#PatZipcode-input').val()
+            var data = {
+                    PatName: PatName,
+                    PatID: PatID,
+                    PatSex: PatSex,
+                    PatVisitDateTime: PatVisitDateTime,
+                    PatNational: PatNational,
+                    PatEducationLevel: PatEducationLevel,
+                    PatBirthday: PatBirthday,
+                    PatIncomeSource: PatIncomeSource,
+                    PatPhone: PatPhone,
+                    PatTreatmentCost: PatTreatmentCost,
+                    PatChildCount: PatChildCount,
+                    PatProfessional: PatProfessional,
+                    PatSiblingsCount:PatSiblingsCount,
+                    PatIncome: PatIncome,
+                    PatBirthProvince: PatBirthProvince,
+                    PatBirthCity: PatBirthCity,
+                    PatAddress: PatAddress,
+                    PatZipcode: PatZipcode
+                }
+            $.ajax({
+                url: "http://localhost:40415/Service.asmx/SavePatBasicDataToDB",
+                data: { value: JSON.stringify(data) },
+　　　　         dataType: "xml",
+                method: 'POST',
+                success: function (res) {
+                    console.log('success')
+                    console.log(res)
+                },
+                error: function (res) {
+                    console.log(res)
+                }
+            })
+        }
+        // function soapBuilder (num, unit) {
+        //     soapString = '<?xml version="1.0" encoding="utf-8"?> \
+        //         <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\
+        //         <soap:Body>\
+        //             <testAPIFunction xmlns="http://tempuri.org/">\
+        //             <num>' + num + '</num>\
+        //             <unit>' + unit + '</unit>'
+        //             '</testAPIFunction>\
+        //         </soap:Body>\
+        //         </soap:Envelope>'
+        //     console.log(soapString)
+        //     return soapString
+        // }
+    </script>
+</body>
+</html>
