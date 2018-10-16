@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>饮食运动建议</title>
+
+   <!-- Bootstrap -->
+   <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+   <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <!-- <script src="./js/patinfo.js"></script> -->
+   <style type="text/css">
+     .firstText{
+         font-size: 25px;
+     }
+     .navbar{
+         min-height: 64px;
+     }
+     .navbar-default{
+       background-color:yellowgreen;
+     }
+     .our-button-style {
+           width: 22%;
+           margin: 0 37%;
+           background-color: rgb(102, 163, 233);
+   }
+     .myli{
+       padding-left:80px;
+       padding-top: 5px;
+       font-size: 20px;
+     }
+     .navbar-default .navbar-nav>li>a{
+   color:white;
+    }
+  label{
+        font-size: 14px;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        font-weight:450;
+    }
+   </style>
+ </head>
+ <body>
+   <nav class="navbar navbar-default navbar-fixed-top">
+       <div class="container-fluid">
+         <!-- Brand and toggle get grouped for better mobile display -->
+         <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="navbar-brand" style="margin-top:-12px" href="#">
+               <img alt="Brand" src="images/logo.png">
+           </a>
+         </div>
+         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+           <p class="navbar-text navbar-left firstText" style="color:white;">代谢综合征临床决策支持系统</p>
+           <ul class="nav navbar-nav">
+               <li class="myli"><a href="#"><img src="images/query3.png">&nbsp&nbsp<strong>病例查询</strong></a></li>
+               <li class="myli" style="padding-left: 30px;"><a href="#"><img src="images/input2.png">&nbsp&nbsp<strong>信息录入</strong></a></li>
+               <li class="myli" style="padding-left: 30px;"><a href="outcome.html"><img src="images/outcome1.png">&nbsp&nbsp<strong>诊断结论</strong></a></li>
+               <li class="myli" style="padding-left: 30px;"><a href="#"><img src="images/test2.png">&nbsp&nbsp<strong>饮食运动</strong></a></li>
+           </ul>
+           <button type="submit" class="btn btn-default navbar-btn" style="margin-top: 17px;margin-left: 580px" onclick="save()">保存</button>
+           <button type="button" class="btn btn-default navbar-btn navbar-right" style="margin-top: 17px;margin-right: -3px">退出</button>
+         </div>
+       </div>
+   </nav>
+   <div style="padding-top:65px">
+   <h3 class="text-center text-info"><img src="images/food1.png">&nbsp&nbsp膳食处方</h3>
+   </div>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-6 col-md-offset-3"> 
+      <form class="form-inline" style="margin-top:20px">
+      <div class="form-group">
+          <p style="font-size:17px"><b>膳食类别：</b><span class="text-danger" id="sp1"></span></p>
+        </div>
+    <div class="form-group">
+      <p style="margin-left:40px;font-size:17px"><b>总热量：</b><span class="text-danger" id="sp2"></span>&nbsp大卡/日</p>
+    </div>
+    <div class="form-group">
+      <p style="margin-left:40px;font-size:17px"><b>饮水量：</b><span class="text-danger" id="sp3"></span>&nbsp毫升/日</p>
+    </div>
+     </form>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+            <h4 class="panel-title">糖类食物所占百分比：<span id="t1"></span><span style="margin-left:65px">共</span>&nbsp;<span id="g1"></span>&nbsp;个食物份（90大卡/份）</h4>
+        </div>
+        <div class="panel-body">
+            <p style="font-size:15px"><img src="images/红薯.png">&nbsp;谷薯类：&nbsp;<span class="text-danger" id="n1"></span>&nbsp;份<span style="margin-left:40px;" id="xx1"></span></p>
+            <p style="font-size:15px"><img src="images/水果2.png">&nbsp;水<span style="margin-left: 16px">果：</span>&nbsp;<span class="text-danger" id="n2"></span>&nbsp;份<span style="margin-left:40px;" id="xx2"></span></p>
+            <p style="font-size:15px"><img src="images/蔬菜.png">&nbsp;疏<span style="margin-left: 16px">菜：</span>&nbsp;<span class="text-danger" id="n3"></span>&nbsp;份<span style="margin-left:40px;" id="xx3"></span></p>
+        </div>
+      </div>  
+    </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+      <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+              <h4 class="panel-title">蛋白质类食物所占百分比：<span id="t2"></span><span style="margin-left:35px">共</span>&nbsp;<span id="g2"></span>&nbsp;个食物份（90大卡/份）</h4>
+          </div>
+          <div class="panel-body">
+              <p style="font-size:15px"><img src="images/牛奶.png">&nbsp;奶制品：&nbsp;<span class="text-danger" id="n4"></span>&nbsp;份<span style="margin-left:40px;" id="xx4"></span></p>
+              <p style="font-size:15px"><img src="images/鸡蛋.png">&nbsp;<span style="margin-left:30px"></span>蛋：&nbsp;<span class="text-danger" id="n5"></span>&nbsp;份<span style="margin-left:40px;" id="xx5"></span></p>
+              <p style="font-size:15px"><img src="images/牛肉.png">&nbsp;肉<span style="margin-left: 16px">类：</span>&nbsp;<span class="text-danger" id="n6"></span>&nbsp;份<span style="margin-left:40px;" id="xx6"></span></p>
+              <p style="font-size:15px"><img src="images/千叶豆腐.png">&nbsp;豆制品：&nbsp;<span class="text-danger" id="n7"></span>&nbsp;份<span style="margin-left:40px;" id="xx7"></span></p>
+          </div>
+        </div>  
+      </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h4 class="panel-title">脂肪类食物所占百分比：<span id="t3"></span><span style="margin-left:53px">共</span>&nbsp;<span id="g3"></span>&nbsp;个食物份（90大卡/份）</h4>
+            </div>
+            <div class="panel-body">
+                <p style="font-size:15px"><img src="images/食用油 .png">&nbsp;植物油：&nbsp;<span class="text-danger" id="n8"></span>&nbsp;份<span style="margin-left:40px;" id="xx8"></span></p>
+                <p style="font-size:15px"><img src="images/粮油.png">&nbsp;其<span style="margin-left: 16px">他：</span>&nbsp;<span class="text-danger" id="n9"></span>&nbsp;份<span style="margin-left:40px;" id="xx9"></span></p>
+            </div>
+          </div>  
+        </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+          <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+    <p style="font-size:17px">限量食品：<span class="text-danger" id="xl"></span></p>
+    <p style="font-size:17px">忌食食品：<span class="text-danger" id="js"></span></p>
+    <p class="text-success" style="font-size:17px"><b>信息缺失：</b><span class="text-danger" id="qs1"></span></p>
+         </div>
+        </div>
+      </div>
+    <!--运动建议部分-->
+    <h3 class="text-center text-info"><img src="images/运动、跑步.png">&nbsp&nbsp运动建议</h3>
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+    <p style="font-size:17px"><b>运动目标：</b><span class="text-danger" id="mb"></span></p>
+    <p style="font-size:17px"><b>运动耗能：</b><span class="text-danger" id="hn"></span></p>
+       </div>
+       </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title">运动方案</h4>
+            </div>
+            <div class="panel-body">
+                <p style="font-size:15px"><img src="images/小汽车.png">&nbsp;休闲运动：&nbsp;<span class="text-danger" id="yd1">3餐后165分钟；每日55分钟</span><span style="margin-left:40px;" id="yxx1"></span></p>
+                <p style="font-size:15px"><img src="images/自行车.png">&nbsp;轻度运动：&nbsp;<span class="text-danger" id="yd2"></span><span style="margin-left:40px;" id="yxx2"></span></p>
+                <p style="font-size:15px"><img src="images/网球.png">&nbsp;中度运动：&nbsp;<span class="text-danger" id="yd3"></span><span style="margin-left:40px;" id="yxx3"></span></p>
+                <p style="font-size:15px"><img src="images/足球 (2).png">&nbsp;强度运动：&nbsp;<span class="text-danger" id="yd4"></span><span style="margin-left:40px;" id="yxx4"></span></p>
+            </div>
+          </div>  
+        </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+          <div class="row">
+          <div class="col-md-6 col-md-offset-3">
+    <p class="text-success" style="font-size:17px"><b>信息缺失：</b><span class="text-danger" id="qs2"></span></p>
+         </div>
+        </div>
+      </div>
+    <script src="./js/suggestion.js" type="text/javascript"></script>
+  </body>
+</html>

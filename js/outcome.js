@@ -2,7 +2,7 @@ window.onload = function () {
     $.ajax({
         url: "http://localhost:40415/Service.asmx/GetDiagnosedResultByReasoning",
         data: { },
-　　　　dataType: "xml",
+        dataType: "xml",
         method: 'POST',
         success: function (res) {
             console.log('success!')
@@ -24,8 +24,7 @@ window.onload = function () {
                 var resu=outcomes[i].getElementsByTagName('Result')[0].innerHTML
                 console.log(resu)
                 var los=outcomes[i].getElementsByTagName('DataNeeded')[0].innerHTML                
-                var tar=outcomes[i].getElementsByTagName('TreatmentTarget')[0].innerHTML
-                console.log(tar)               
+                var tar=outcomes[i].getElementsByTagName('TreatmentTarget')[0].innerHTML              
                 var sug=outcomes[i].getElementsByTagName('TreatmentSuggestion')[0].innerHTML               
                 var sef=outcomes[i].getElementsByTagName('SelfCheck')[0].innerHTML
                 document.getElementById(`res[${i}]`).innerHTML=resu
