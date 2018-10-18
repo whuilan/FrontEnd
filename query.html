@@ -78,7 +78,7 @@
     <div class="form-inline mygroup" style="margin-left: 200px;font-size:16px">
       <div class="form-group">
         <label for="exampleInputName2">姓&nbsp;&nbsp;&nbsp;&nbsp;名</label>&nbsp;&nbsp;&nbsp;
-        <input type="text" class="form-control" id="exampleInputName2">
+        <input type="text" class="form-control" id="inputPatName">
       </div>
       <div class="form-group" style="padding-left: 70px;">
         <label>出生日期</label>&nbsp;&nbsp;&nbsp;
@@ -93,19 +93,6 @@
         </label> 
       </div>
       <div class="form-group" style="padding-left: 30px;">
-        <!-- <div class="input-group">
-          <input type="text" class="form-control" placeholder="2018年9月5日">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
-          </span>
-        </div>
-        <span style="font-size: 18px;padding: 0px 20px;">~</span>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="2018年9月5日">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
-          </span>
-        </div> -->
         <div class="input-daterange input-group" id="datepicker">
           <input type="text" class="form-control" name="start">
           <span class="input-group-addon">~</span>
@@ -118,7 +105,7 @@
     <form class="form-inline mygroup" style="margin-top:15px;margin-left: 200px;font-size:16px">
       <div class="form-group">
         <label for="exampleInputName2">病人ID</label>&nbsp;&nbsp;&nbsp;
-        <input type="text" style="margin-left: 2px" class="form-control" id="exampleInputName2">
+        <input type="text" style="margin-left: 2px" class="form-control" id="inputID">
       </div>
       <div class="form-group" style="padding-left: 70px;">
         <label>就诊日期</label>&nbsp;&nbsp;&nbsp;
@@ -149,10 +136,10 @@
           <input type="radio" name="inlineRadioOptions" id="inlineRadio7" value="option1"> 男
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio8" value="option2"> 女
+          <input type="radio" name="inlineRadioOptions" id="inlineRadio8" checked="checked" value="option2"> 女
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio9" checked="checked" value="option3"> 不限
+          <input type="radio" name="inlineRadioOptions" id="inlineRadio9" value="option3"> 不限
         </label> 
       </div>
       <div class="form-group" style="padding-left: 71px">
@@ -221,7 +208,7 @@
     </div>
 
     <script type="text/javascript">
-      function addPatientItem (Time,Seq, ID, Name, Sex) {
+      function addPatientItem (Time, Seq, ID, Name, Sex) {
         let List = $(`#patient-list`)
         // visitTime=Time
         let newItem = $(`<tr id=\"pat-list-${Seq}\" rel=\"${Time}\"></tr>`)
@@ -230,8 +217,15 @@
         let threeItem = $(`<td>${Sex}</td>`)
         newItem.click(function(){
           selectedPat = $(this).attr("id").split('pat-list-')[1]
+          patRecordSeq = patDict[selectedPat]
+          console.log(patRecordSeq)
+          console.log(patRecordSeq.join(','))
           selectedTime = $(this).attr("rel")
-          getSinglePatData(selectedPat, selectedTime)
+          // for(var i=0;i<=patRecordSeq.length;i++)
+          // {
+          //   getSinglePatData(patRecordSeq[i], selectedTime)
+          // }
+          getSinglePatData(patRecordSeq, selectedTime)
         })
         newItem.append(oneItem)
         newItem.append(twoItem)
@@ -240,7 +234,8 @@
        }
 
      function getSinglePatData ( Seq, time ) {
-     let patData = { "recordSeq": Seq }
+     //let patData = { "recordSeq": Seq }
+     let patData = { "recordSeqs": Seq.join(',') }
      $.ajax({
         url : `http://localhost:40415/Service.asmx/QueryDiseaseHistoryByRecordSeq`,
         data: patData,        
@@ -248,7 +243,7 @@
         contentType: "application/x-www-form-urlencoded;charset=utf8",
         method: 'POST',
         success : function(data) {
-            debugger
+            //debugger
             console.log(data)
             setDisHistoryTable(data, time)
             //displayAlert(`${selectedPat}数据加载完成`)
@@ -281,27 +276,33 @@
 
     function setDisHistoryTable(data, time){
       var diseases = data.getElementsByTagName('QueryDisHisRecord')
-                    //debugger
-                    if(diseases)
-                    {
-                      // clearPatientTable()
-                      for(var i=0;i<diseases.length;i++)
-                      {
-                       
-                        var syn=diseases[i].getElementsByTagName('metabolicsSyndrome')[0].innerHTML
-                        var deg=diseases[i].getElementsByTagName('dangerDegree')[0].innerHTML
-                        var sco=diseases[i].getElementsByTagName('dangerScore')[0].innerHTML
-                        var lost=diseases[i].getElementsByTagName('lostInfo')[0].innerHTML
-                        addDisHistoryItem(time, syn ,deg, sco, lost)
+      clearDisHistoryTable()
+        //debugger
+        if(diseases)
+        {
+          // clearPatientTable()
+          for(var i=0;i<diseases.length;i++)
+          {
+            var syn=diseases[i].getElementsByTagName('metabolicsSyndrome')[0].innerHTML
+            var deg=diseases[i].getElementsByTagName('dangerDegree')[0].innerHTML
+            var sco=diseases[i].getElementsByTagName('dangerScore')[0].innerHTML
+            var lost = ''
+            if (diseases[i].getElementsByTagName('lostInfo')[0])
+              lost=diseases[i].getElementsByTagName('lostInfo')[0].innerHTML
+            addDisHistoryItem(time, syn ,deg, sco, lost)
 
-                      }
-                    }
+          }
+        }
       }
 
+      var patDict = {}
       function clearPatientTable () {
         $(`#patient-list`).empty()
       }
         function queryPat(){
+          var strName=$('#inputPatName').val()
+          var PatID=$('#inputID').val()
+
         $.ajax({
                 url: "http://localhost:40415/Service.asmx/QueryPatDataByCondition",
                 data: { },
@@ -309,24 +310,32 @@
                 method: 'POST',
                 success: function (res) {
                     //debugger
-                    console.log('success')
+                    console.log('success~')
                     console.log(res)
                     // PatName = res.getElementsByTagName('PatName')[1].innerHTML
                     // console.log(PatName)
                     var pats = res.getElementsByTagName('QueryPatient')
+                    clearPatientTable()
                     //debugger
                     if(pats)
                     {
                       // clearPatientTable()
                       for(var i=0;i<pats.length;i++)
                       {
-                        var time=pats[i].getElementsByTagName('PatVisitDateTime')[0].innerHTML
+                        var patSeq=pats[i].getElementsByTagName('PatSEQ')[0].innerHTML
                         var seq=pats[i].getElementsByTagName('RecordSEQ')[0].innerHTML
-                        var ID=pats[i].getElementsByTagName('PatID')[0].innerHTML
-                        var name=pats[i].getElementsByTagName('PatName')[0].innerHTML
-                        var sex=pats[i].getElementsByTagName('PatSex')[0].innerHTML
-                        addPatientItem(time,seq,ID, name, sex)
+                        if (!patDict[patSeq]) {
+                          patDict[patSeq] = [seq] // tang: [1]
+                          var time=pats[i].getElementsByTagName('PatVisitDateTime')[0].innerHTML
+                          var ID=pats[i].getElementsByTagName('PatID')[0].innerHTML
+                          var name=pats[i].getElementsByTagName('PatName')[0].innerHTML
+                          var sex=pats[i].getElementsByTagName('PatSex')[0].innerHTML
+                          addPatientItem(time, patSeq, ID, name, sex)
+                        } else {
+                          patDict[patSeq].push(seq) // tang: [1, 2. 3]
+                        }
                       }
+                      console.log(patDict) // { tang: [1,2,4,5], 123: [1].... }
                     }
                     // PatList.map (item => {
                     // addPatientItem(item.FollowupTime, item.Done)
