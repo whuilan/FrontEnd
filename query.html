@@ -83,20 +83,20 @@
       <div class="form-group" style="padding-left: 70px;">
         <label>出生日期</label>&nbsp;&nbsp;&nbsp;
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 精确
+          <input type="radio" name="birthDayOptions" id="inlineRadio1" value="option7"> 精确
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" disabled> 范围
+          <input type="radio" name="birthDayOptions" id="inlineRadio2" value="option8"> 范围
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio3" checked="checked" value="option3"> 不限
+          <input type="radio" name="birthDayOptions" id="inlineRadio3" checked="checked" value="option9"> 不限
         </label> 
       </div>
       <div class="form-group" style="padding-left: 30px;">
         <div class="input-daterange input-group" id="datepicker">
-          <input type="text" class="form-control" name="start">
+          <input type="text" class="form-control" id="birthDayInput1" name="start" disabled>
           <span class="input-group-addon">~</span>
-          <input type="text" class="form-control" name="end">
+          <input type="text" class="form-control" id="birthDayInput2" name="end" disabled>
         </div>
       </div>
       <button class="btn" style="margin-left: 100px;background-color: rgb(88, 174, 231);color: white;" onclick="queryPat()">查询</button>
@@ -110,20 +110,20 @@
       <div class="form-group" style="padding-left: 70px;">
         <label>就诊日期</label>&nbsp;&nbsp;&nbsp;
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option1"> 精确
+          <input type="radio" name="visitDayOptions" id="inlineRadio4" value="option4"> 精确
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option2"> 范围
+          <input type="radio" name="visitDayOptions" id="inlineRadio5" value="option5"> 范围
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio6" checked="checked" value="option3"> 不限
+          <input type="radio" name="visitDayOptions" id="inlineRadio6" checked="checked" value="option6"> 不限
         </label> 
       </div>
       <div class="form-group" style="padding-left: 30px;">
         <div class="input-daterange input-group" id="datepicker">
-          <input type="text" class="form-control" name="start">
+          <input type="text" class="form-control" id="visitDayInput3" name="start" disabled='true'>
           <span class="input-group-addon">~</span>
-          <input type="text" class="form-control" name="end">
+          <input type="text" class="form-control" id="visitDayInput4" name="end" disabled='true'>
         </div>
       </div>
       <button type="button" class="btn" style="margin-left: 100px;background-color: rgb(88, 174, 231);color: white;">清空</button>
@@ -133,13 +133,13 @@
       <div class="form-group">
         <label for="exampleInputName2">性&nbsp;&nbsp;&nbsp;别</label>&nbsp;&nbsp;&nbsp;
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio7" value="option1"> 男
+          <input type="radio" name="sexOptions" id="inlineRadio7" value="option1"> 男
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio8" checked="checked" value="option2"> 女
+          <input type="radio" name="sexOptions" id="inlineRadio8" value="option2"> 女
         </label>
         <label class="radio-inline">
-          <input type="radio" name="inlineRadioOptions" id="inlineRadio9" value="option3"> 不限
+          <input type="radio" name="sexOptions" id="inlineRadio9" value="option3" checked> 不限
         </label> 
       </div>
       <div class="form-group" style="padding-left: 71px">
@@ -208,10 +208,46 @@
     </div>
 
     <script type="text/javascript">
-      function addPatientItem (Time, Seq, ID, Name, Sex) {
+      $(function () {
+            $("input:radio[name=birthDayOptions]").click(function () {
+              switch($("input[name=birthDayOptions]:checked").attr("id")){
+                case "inlineRadio1":
+                $("#birthDayInput1").attr('disabled',false);
+                $("#birthDayInput2").attr('disabled',true);
+                break;
+                case "inlineRadio2":
+                $("#birthDayInput1").attr('disabled',false);
+                $("#birthDayInput2").attr('disabled',false);
+                break;
+                case "inlineRadio3":
+                $("#birthDayInput1").attr('disabled',true);
+                $("#birthDayInput2").attr('disabled',true);
+                break;
+              }
+            });
+        })
+      $(function () {
+            $("input:radio[name=visitDayOptions]").click(function () {
+              switch($("input[name=visitDayOptions]:checked").attr("id")){
+                case "inlineRadio4":
+                $("#visitDayInput3").attr('disabled',false);
+                $("#visitDayInput4").attr('disabled',true);
+                break;
+                case "inlineRadio5":
+                $("#visitDayInput3").attr('disabled',false);
+                $("#visitDayInput4").attr('disabled',false);
+                break;
+                case "inlineRadio6":
+                $("#visitDayInput3").attr('disabled',true);
+                $("#visitDayInput4").attr('disabled',true);
+                break;
+              }
+            });
+        })
+      function addPatientItem (Time, PatSeq, ID, Name, Sex) {
         let List = $(`#patient-list`)
         // visitTime=Time
-        let newItem = $(`<tr id=\"pat-list-${Seq}\" rel=\"${Time}\"></tr>`)
+        let newItem = $(`<tr id=\"pat-list-${PatSeq}\" rel=\"${Time}\"></tr>`)
         let oneItem = $(`<td>${ID}</td>`)
         let twoItem = $(`<td>${Name}</td>`)
         let threeItem = $(`<td>${Sex}</td>`)
@@ -302,10 +338,46 @@
         function queryPat(){
           var strName=$('#inputPatName').val()
           var PatID=$('#inputID').val()
-
+          var strSex
+          var radioSex=$("input[name='sexOptions']:checked").val()
+          //console.log(radioSex)
+          if(radioSex=="option1")
+            {strSex="男";}
+          else if(radioSex=="option2")
+            {strSex="女";}
+          else
+            {strSex="";}
+          //if(document.getElementById('inlineRadio7').checked)
+          var dtBirthDayFrom
+          var dtBirthDayTo
+          var birthDate=$("input[name='birthDayOptions']:checked").val()
+          if(visitDate=="option7")
+          {dtBirthDayFrom=$('#birthDayInput1').val()}
+          else if(visitDate=="option8")
+          {
+            dtBirthDayFrom=$('#birthDayInput1').val()
+            dtBirthDayTo=$('#birthDayInput2').val()
+          }
+          var dtVisitFrom
+          var dtVisitTo
+          var visitDate=$("input[name='visitDayOptions']:checked").val()
+          if(visitDate=="option4")
+          {dtVisitFrom=$('#visitDayInput3').val()}
+          else if(visitDate=="option5")
+          {
+            dtVisitFrom=$('#visitDayInput3').val()
+            dtVisitTo=$('#visitDayInput4').val()
+          }
+          data={
+            strName:strName,
+            PatID:PatID,
+            strSex:strSex,
+            dtVisitFrom:dtVisitFrom,
+            dtVisitTo:dtVisitTo
+          }
         $.ajax({
                 url: "http://localhost:40415/Service.asmx/QueryPatDataByCondition",
-                data: { },
+                data: { value: JSON.stringify(data) },
 　　　　         dataType: "xml",
                 method: 'POST',
                 success: function (res) {
