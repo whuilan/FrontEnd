@@ -86,7 +86,7 @@
           <input type="radio" name="birthDayOptions" id="inlineRadio1" value="option7"> 精确
         </label>
         <label class="radio-inline">
-          <input type="radio" name="birthDayOptions" id="inlineRadio2" value="option8"> 范围
+          <input type="radio" name="birthDayOptions" id="inlineRadio2" value="option8" disabled> 范围
         </label>
         <label class="radio-inline">
           <input type="radio" name="birthDayOptions" id="inlineRadio3" checked="checked" value="option9"> 不限
@@ -215,10 +215,6 @@
                 $("#birthDayInput1").attr('disabled',false);
                 $("#birthDayInput2").attr('disabled',true);
                 break;
-                case "inlineRadio2":
-                $("#birthDayInput1").attr('disabled',false);
-                $("#birthDayInput2").attr('disabled',false);
-                break;
                 case "inlineRadio3":
                 $("#birthDayInput1").attr('disabled',true);
                 $("#birthDayInput2").attr('disabled',true);
@@ -336,6 +332,7 @@
         $(`#patient-list`).empty()
       }
         function queryPat(){
+          patDict = {}
           var strName=$('#inputPatName').val()
           var PatID=$('#inputID').val()
           var strSex
@@ -348,18 +345,16 @@
           else
             {strSex="";}
           //if(document.getElementById('inlineRadio7').checked)
-          var dtBirthDayFrom
-          var dtBirthDayTo
+          var dtBirthDayFrom=""
+          var dtBirthDayTo=""
           var birthDate=$("input[name='birthDayOptions']:checked").val()
-          if(visitDate=="option7")
-          {dtBirthDayFrom=$('#birthDayInput1').val()}
-          else if(visitDate=="option8")
+          if(birthDate=="option7")
           {
             dtBirthDayFrom=$('#birthDayInput1').val()
-            dtBirthDayTo=$('#birthDayInput2').val()
           }
-          var dtVisitFrom
-          var dtVisitTo
+
+          var dtVisitFrom=""
+          var dtVisitTo=""
           var visitDate=$("input[name='visitDayOptions']:checked").val()
           if(visitDate=="option4")
           {dtVisitFrom=$('#visitDayInput3').val()}
@@ -372,6 +367,8 @@
             strName:strName,
             PatID:PatID,
             strSex:strSex,
+            dtBirthDayFrom:dtBirthDayFrom,
+            dtBirthDayTo:dtBirthDayTo,
             dtVisitFrom:dtVisitFrom,
             dtVisitTo:dtVisitTo
           }
