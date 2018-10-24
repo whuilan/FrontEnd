@@ -81,9 +81,74 @@ function save(){
         success: function (res) {
             console.log('success')
             console.log(res)
+            window.location.href = "outcome.html"
         },
         error: function (res) {
             console.log(res)
         }
     })
+}
+
+var url = location.search;
+if (url.indexOf("?") != -1){
+    var str = url.substr(1);
+    var strs=str.split("=")
+    let PatRecSeq = strs[1];
+    $.ajax({
+        url : `http://localhost:40415/Service.asmx/GetDataFromDBByRecordSEQ`,
+        data: {"patRecSeq":PatRecSeq},        
+        dataType : "xml",
+        //contentType: "application/x-www-form-urlencoded;charset=utf8",
+        method: 'POST',
+        success : function(data) {
+            //debugger
+            console.log('get single PatData successfully!')
+            console.log(data)
+            setPatData(data)
+        },
+        error : function(data) {
+           console.log(data)
+        }
+        })
+}
+
+function setPatData(data){
+   //var PatBasicInfo=data.getElementsByTagName('PatBasicInfo')
+    var PatName = $('#PatName-input').val(data.getElementsByTagName('PatName')[0].innerHTML)
+    var PatID = $('#PatID-input').val(data.getElementsByTagName('PatID')[0].innerHTML)
+    var PatSex = $('#PatSex-input').val()
+    var PatNational = $('#PatNational-input').val()
+    var Height=$('#Height-input').val()
+    var Weigh=$('#Weigh-input').val()
+    var WC=$('#WC-input').val()
+    var SBP1=$('#SBP1-input').val()
+    var DBP1=$('#DBP1-input').val()
+    var HC=$('#HC-input').val()
+    var FBG=$('#FBG-input').val()
+    var TWOHPBG=$('#TWOHPBG-input').val()
+    var HBA1C=$('#HBA1C-input').val()
+    var FastingInsulin=$('#FastingInsulin-input').val()
+    var PostprandialInsulin=$('#PostprandialInsulin-input').val()
+    var CR=$('#CR-input').val()
+    var AlanineAminotransferase=$('#AlanineAminotransferase-input').val()
+    var AspartateAminotransferase=$('#AspartateAminotransferase-input').val()
+    var SerumTotalProtein=$('#SerumTotalProtein-input').val()
+    var SerumAlbumin=$('#SerumAlbumin-input').val()
+    var BUA=$('#BUA-input').val()
+    var TC=$('#TC-input').val()
+    var HDLC=$('#HDLC-input').val()
+    var TG=$('#TG-input').val()
+    var LDLC=$('#LDLC-input').val()
+    var Tbil=$('#Tbil-input').val()
+    var UN=$('#UN-input').val()
+    var AFP=$('#AFP-input').val()
+    var CEA=$('#CEA-input').val()
+    var IsSmokeing=$('#IsSmokeing-input').val()
+    var IsDrinking=$('#IsDrinking-input').val()
+    var HasExerciseRecent=$('#HasExerciseRecent-input').val()
+    var MainFoodAmount=$('#MainFoodAmount-input').val()
+    var ProteinAmount=$('#ProteinAmount-input').val()
+    var OilAmount=$('#OilAmount-input').val()
+    var MaxWeight=$('#MaxWeight-input').val()
+   //PatName.val(data.getElementsByTagName('PatName')[0].innerHTML)
 }
