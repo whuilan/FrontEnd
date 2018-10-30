@@ -12,11 +12,21 @@ window.onload = function (){
         }
     })
 }
+
+  var PatVisitDateTime = $('#PatVisitDateTime-input')
+  var date = new Date();
+  var year = date.getFullYear();
+  var month = date.getMonth()+1;
+  var day = date.getDate();
+  PatVisitDateTime.val(year+'年'+month+'月'+day+'日')
+
 function save(){
     var PatName = $('#PatName-input').val()
     var PatID = $('#PatID-input').val()
     var PatSex = $('#PatSex-input').val()
     var PatNational = $('#PatNational-input').val()
+    var PatBirthday = $('#PatBirthday-input').val()
+    var PatVisitDateTime = $('#PatVisitDateTime-input').val()
     var Height=$('#Height-input').val()
     var Weigh=$('#Weigh-input').val()
     var WC=$('#WC-input').val()
@@ -54,6 +64,8 @@ function save(){
         PatID:PatID,
         PatSex: PatSex,
         PatNational: PatNational,
+        PatBirthday:PatBirthday,
+        PatVisitDateTime:PatVisitDateTime,
         Height:Height,
         Weigh:Weigh,
         WC:WC,
@@ -132,6 +144,8 @@ function setPatData(data){
     var PatID = $('#PatID-input')
     var PatSex = $('#PatSex-input')
     var PatNational = $('#PatNational-input')
+    var PatBirthday = $('#PatBirthday-input')
+    var PatVisitDateTime = $('#PatVisitDateTime-input')
     var Height=$('#Height-input')
     var Weigh=$('#Weigh-input')
     var WC=$('#WC-input')
@@ -169,6 +183,12 @@ function setPatData(data){
     PatID.val(data.getElementsByTagName('PatID')[0].innerHTML)
     PatSex.val(data.getElementsByTagName('PatSex')[0].innerHTML)
     PatNational.val(data.getElementsByTagName('PatNational')[0].innerHTML)
+    var date1=data.getElementsByTagName('PatBirthday')[0].innerHTML.split('-')
+    var date2=date1[2].split('T')
+    PatBirthday.val(date1[0]+'年'+date1[1]+'月'+date2[0]+'日')
+    var date3=data.getElementsByTagName('PatVisitDateTime')[0].innerHTML.split('-')
+    var date4=date1[2].split('T')
+    PatVisitDateTime.val(date3[0]+'年'+date3[1]+'月'+date4[0]+'日')
     Height.val(data.getElementsByTagName('Height')[0].innerHTML)
     Weigh.val(data.getElementsByTagName('Weigh')[0].innerHTML)
     WC.val(data.getElementsByTagName('WC')[0].innerHTML)
@@ -201,5 +221,13 @@ function setPatData(data){
     ProteinAmount.val(data.getElementsByTagName('ProteinAmount')[0].innerHTML)
     OilAmount.val(data.getElementsByTagName('OilAmount')[0].innerHTML)
     MaxWeight.val(data.getElementsByTagName('MaxWeight')[0].innerHTML)
-
 }
+
+$("input[name='startTime']").datepicker({
+    minView : "day", //  选择时间时，最小可以选择到那层；默认是‘hour’也可用0表示
+    language : 'zh-CN', // 语言
+    autoclose : true, //  true:选择时间后窗口自动关闭
+    //format : 'yyyy-mm-dd hh:00:00', // 文本框时间格式，设置为0,最后时间格式为2017-03-23 17:00:00
+    todayBtn : "linked", // 如果此值为true 或 "linked"，则在日期时间选择器组件的底部显示一个 "Today" 按钮用以选择当前日期。
+    endDate : new Date()   // 窗口最大时间直至今天
+  })
